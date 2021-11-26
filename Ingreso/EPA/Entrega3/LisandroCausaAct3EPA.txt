@@ -1,0 +1,143 @@
+por Lisandro Causa, Grupo 12
+
+Ejercicio 1:
+
+programa ejercicio1 { Lisandro Causa - Grupo 12 }
+procesos
+  proceso contarFlores (ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  
+  proceso contarPapeles (ES papeles : numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papeles := papeles + 1
+  fin
+
+  proceso recorrerCalle (E calle : numero; ES floresCalle : numero; ES papelesCalle : numero)
+  comenzar
+    Pos(1,calle)
+    repetir 99
+      contarFlores(floresCalle)
+      contarPapeles(papelesCalle)
+      mover
+    contarFlores(floresCalle)
+    contarPapeles(papelesCalle)
+  fin
+areas
+  ciudad: AreaC(1,1,100,100)
+robots
+  robot robot1
+  variables
+    flores, papeles : numero
+    calle : numero
+  comenzar
+    flores := 0
+    papeles := 0
+    calle := 0
+    derecha
+    repetir 100
+      calle := calle + 1
+      recorrerCalle(calle, flores, papeles)
+    Informar(flores, papeles)
+  fin
+variables
+  R-info : robot1
+comenzar
+  AsignarArea(R-info,ciudad)
+  Iniciar(R-info, 1, 1)
+fin
+
+---------------------------------
+
+Ejercicio 2:
+
+programa ejercicio2 { Lisandro Causa - Grupo 12 }
+procesos
+  proceso devolverFlores (E flores : numero)
+  comenzar
+    repetir flores
+      si HayFlorEnLaBolsa { para evitar posibles errores del programador/usuario que manipule el codigo (programación defensiva) }
+        depositarFlor
+  fin
+  
+  proceso revisar20Flores (ES esquinas : numero)
+  variables
+    flores : numero
+  comenzar
+    flores := 0
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+    si flores = 20
+      esquinas := esquinas + 1
+    devolverFlores(flores)
+  fin
+  
+  proceso devolverPapeles (E papeles : numero)
+  comenzar
+    repetir papeles
+      si HayPapelEnLaBolsa { para evitar posibles errores del programador/usuario que manipule el codigo (programación defensiva) }
+        depositarPapel
+  fin
+  
+  proceso revisarPapeles (ES papeles : numero)
+  variables
+    papelesRecogidos : numero
+  comenzar
+    papelesRecogidos := 0
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papelesRecogidos := papelesRecogidos + 1
+    papeles := papeles + papelesRecogidos
+    devolverPapeles(papelesRecogidos)
+  fin
+  
+  proceso revisarEsquina (ES esquinasF : numero; ES papelesAvenida : numero)
+  comenzar
+    revisar20Flores(esquinasF)
+    revisarPapeles(papelesAvenida)
+  fin
+
+  proceso recorrerAvenida (E avenida : numero; ES esquinasF : numero; ES avenidasM60Papeles : numero)
+  variables
+    papelesAvenida : numero
+  comenzar
+    papelesAvenida := 0
+    Pos(avenida,1)
+    repetir 99
+      revisarEsquina(esquinasF, papelesAvenida)
+      mover
+    revisarEsquina(esquinasF, papelesAvenida)
+    si papelesAvenida < 60
+      avenidasM60Papeles := avenidasM60Papeles + 1
+  fin
+areas
+  ciudad: AreaC(1,1,100,100)
+robots
+  robot robot1
+  variables
+    avenida : numero
+    esquinas20Flores : numero
+    avenidasMenos60Papeles : numero
+  comenzar
+    avenida := 0
+    esquinas20Flores := 0
+    avenidasMenos60Papeles := 0
+    
+    repetir 100
+      avenida := avenida + 1
+      recorrerAvenida(avenida, esquinas20Flores, avenidasMenos60Papeles)
+      
+    Informar(esquinas20Flores, avenidasMenos60Papeles)
+  fin
+variables
+  R-info : robot1
+comenzar
+  AsignarArea(R-info,ciudad)
+  Iniciar(R-info, 1, 1)
+fin

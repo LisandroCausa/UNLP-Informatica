@@ -1,28 +1,35 @@
 program practica1_9;
 var
-    operacion :  char;
-    entrada : integer;
-    total   : integer;
+    operacion   : char;
+    entrada     : integer;
+    valorInicial: integer;
+    total       : integer;
 begin
     total := 0;
     readln(operacion);
-    if(operacion = '+') then
+    if((operacion = '+') or (operacion = '-')) then
     begin
-        read(entrada);
-        while(entrada <> 0) do
+        readln(valorInicial);
+        if(valorInicial <> 0) then
         begin
-            total := total + entrada;
-            read(entrada);
-        end;
-        writeln('Resultado = ', total);
-    end
-    else if(operacion = '-') then
-    begin
-        read(entrada);
-        while(entrada <> 0) do
-        begin
-            total := total - entrada;
-            read(entrada);
+            total := valorInicial;
+            readln(entrada);
+            if(operacion = '+') then
+            begin
+                while(entrada <> 0) do
+                begin
+                    total := total + entrada;
+                    readln(entrada);
+                end;
+            end
+            else if(operacion = '-') then
+            begin
+                while(entrada <> 0) do
+                begin
+                    total := total - entrada;
+                    readln(entrada);
+                end;
+            end;
         end;
         writeln('Resultado = ', total);
     end;

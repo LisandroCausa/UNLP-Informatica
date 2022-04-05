@@ -20,7 +20,7 @@ begin
 	tiempoSegundoPuesto := 9999;
 	tiempoUltimoPuesto := -9999;
 	tiempoAnteultimoPuesto := -9999;
-	for i:=1 to 10 do
+	for i:=1 to 100 do
 	begin
 		write('Piloto: ');
 		readln(piloto);

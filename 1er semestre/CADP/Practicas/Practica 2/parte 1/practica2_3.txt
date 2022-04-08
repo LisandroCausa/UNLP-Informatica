@@ -1,0 +1,1 @@
+el error es que no encuentra una variable con el nombre "b", ya que dicha variable pertenece a la procedure uno, por ende su ciclo de vida comienza y termina con el procedimiento. El resto del programa no tiene acceso a dicha variable.

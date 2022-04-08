@@ -1,0 +1,7 @@
+a)
+	i) No se puede invocar a la funcion "analizarLetra" desde fuera del procedimiento "leer", por ejemplo desde el programa principal no se puede.
+	ii) Escribiendo la funcion "analizarLetra" fuera del procedimiento "leer", es decir, como una funcion perteneciente al programa y no solo a un único proceso.
+b)
+	i) No cubre los caracteres que no son alfabeticos.
+	ii) La funcion no retorna ningún valor especificado.
+	iii) Agregando al final del cuerpo de la funcion un valor de retorno predeterminado	en caso de que no se cumplan las condiciones anteriores.

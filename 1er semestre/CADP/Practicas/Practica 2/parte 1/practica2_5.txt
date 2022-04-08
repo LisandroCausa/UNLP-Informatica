@@ -1,0 +1,3 @@
+Hay dos errores.
+1- se está invocando la funcion "cuatro", la cual devuelve 4, pero en dicha invocacion su retorno no se lo está asignando ni usando en ningun contexto. De algún modo queda "en la nada".
+2- se imprime en pantalla la variable "a" pero dicha no tiene ningun valor asignado antes.

@@ -1,0 +1,2 @@
+En el primer ejemplo las variables "a" y "b" son creadas con un alcance global, es decir que pueden ser usadas en cualquier parte del archivo, tanto en el programa principal como en funciones/procedimientos.
+En cambio, en el segundo programa estas son creadas solamente en el contexto del programa principal, es decir, el procedure "uno" no puede accederlas.

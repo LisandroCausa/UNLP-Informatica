@@ -1,0 +1,6 @@
+a) retornar su valor con "calcularPromedio := prom;" en la última linea de la función
+b) habria que almacenar el valor que devuelve la funcion en una variable del programa, así en vez de llamar a la misma funcion varias veces se llama a la variable que almacena su resultado.
+c)
+	i) En teoria no deberia retornar ningun valor (Error/Warning)
+	ii) -1
+	iii) 8

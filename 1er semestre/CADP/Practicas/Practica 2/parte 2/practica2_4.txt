@@ -1,0 +1,6 @@
+2. Variable 'salario' tiene que ser por referencia.
+10. Habría que declarar 'maxSalario' como un parametro por referencia.
+20. Falta iniciar 'maxLegajo' en 0.
+21. 'sumaSalarios' no está declarada.
+23. Orden de parametros.
+24. Entre la lista de parametros hay que agregar 'maxSalario'.

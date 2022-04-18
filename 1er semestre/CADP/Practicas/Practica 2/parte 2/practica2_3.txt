@@ -1,0 +1,7 @@
+3. Habría que declarar la variable 'c' como una por referencia.
+7. Falta iniciar 'suma' en 0.
+8. Variable 'i' no está declarada.
+16. Falta declarar variables 'a' y 'b'.
+17. El tercer parametro tendría que ser 'result', no 0.
+20. Falta declarar variable 'ok'.
+20. Cambiar OR por AND.

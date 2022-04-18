@@ -1,0 +1,4 @@
+1)
+    a) 25
+    b) 10
+    c) Generaria un error debido a que se esta modificando la variable de un for (i)

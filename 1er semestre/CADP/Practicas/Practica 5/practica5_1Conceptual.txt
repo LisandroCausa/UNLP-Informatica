@@ -1,0 +1,5 @@
+1) La memoria estática es aquella que no cambia durante la ejecución del programa. Es constante.
+2) La memoria dinámica es aquella que puede cambiar durante la ejecución del programa. No es constante.
+3) Un tipo de variable que almacena una direccion de memoria.
+4) New() manda un pedido de reservar una parte de la memoria al sistema. Esa memoria es la que se le da a la variable puntero a la que se le aplico New().
+5) Dispose() libera la memoria utilizada por el puntero, para que otro programa u variable la pueda utilizar.

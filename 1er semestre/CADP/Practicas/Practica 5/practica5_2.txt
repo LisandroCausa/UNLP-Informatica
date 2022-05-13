@@ -1,0 +1,8 @@
+4 bytes
+16 bytes
+4 bytes
+16 bytes
+16 bytes
+16 bytes
+
+Los tamaños de los registros en memoria no se ven alterados por si le asignamos o no valores a sus campos.

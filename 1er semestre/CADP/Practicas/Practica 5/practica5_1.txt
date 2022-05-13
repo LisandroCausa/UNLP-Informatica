@@ -1,0 +1,9 @@
+4 bytes
+4 bytes
+4 bytes
+51 bytes
+51 bytes
+
+Cuando se llama sizeof(pc) el valor que retorna este es siempre constate (4 bytes) sin importar si se asigna o no el puntero.
+Es decir, su memoria estatica del puntero no cambia.
+Luego en sizeof(pc^), que da 51 bytes, esto es así porque ese es el tamaño que ocupa la direccion a la que está apuntando (string[50]).

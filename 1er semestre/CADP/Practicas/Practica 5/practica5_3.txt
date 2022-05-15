@@ -1,0 +1,4 @@
+4 bytes
+20000 bytes
+20000 bytes
+20000 bytes   (No cambia que se le asigne valor a una parte del array, el tamaño en memoria reservado es el mismo)

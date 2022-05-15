@@ -1,0 +1,14 @@
+a) ERROR, debido a que se le asigna un valor al puntero antes de que este tenga una direccion de memoria asignada.
+
+b)
+	51 bytes
+	un nuevo nombre
+	ERROR, se asigna un valor al puntero luego de que este fue borrado de memoria
+
+c)
+	Un texto
+	Otro texto
+
+d)
+	Un texto
+	Un texto

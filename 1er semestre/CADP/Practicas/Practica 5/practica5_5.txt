@@ -1,0 +1,6 @@
+TEmpleado = 72
+
+II) No
+III) 400.000 - 72 = 399.928
+IV) La misma
+V) La inicial (400.000)

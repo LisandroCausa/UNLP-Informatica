@@ -1,0 +1,5 @@
+a) 46 bytes
+b) 46 bytes
+c) 86 bytes
+d) 134 bytes
+e) 86 bytes

@@ -1,0 +1,70 @@
+program ejercicio2;
+type
+	lista = ^nodo;
+	persona = record
+		dni: integer;
+		nombre: string;
+		apellido: string;
+	end;
+	nodo = record
+		dato: persona;
+		sig: lista;
+	end;
+
+procedure leerPersona(p: persona);
+begin
+	read(p.dni);
+	if (p.dni <> 0)then begin
+		read(p.nombre);
+		read(p.apellido);
+	end;
+end;
+
+{Agrega un nodo a la lista}
+procedure agregarAdelante(l:lista;p:persona);
+var
+	aux: lista;
+begin
+	aux^.dato:= p;
+	aux^.sig:= l;
+	l:= aux;
+end;
+
+{Carga la lista hasta que llega el dni 0}
+procedure generarLista(var l:lista);
+var
+	p:nodo;
+begin
+	leerPersona(p);
+	while (p.dni <> 0) do begin
+		agregarAdelante(l,p);
+	end;
+end;
+
+procedure imprimirInformacion(var l:lista);
+begin
+	while (l <> nil) do begin
+		writeln('DNI: ', l^.dato.dni, 'Nombre:',
+		l^.nombre, 'Apellido:', l^.apellido);
+		l:= l^.sig;
+	end;
+end;
+
+{Programa principal}
+var
+	l:lista;
+begin
+	generarLista(l);
+	imprimirInformacion(l);
+end.
+
+
+Respuesta:
+14. Es por referencia el parametro
+16, 18, 19. Preferible usar readln() en vez de read(), se imposibilita leer apellido separado de nombre
+24. 'l' deberia ser por referencia
+28. Falta alocar puntero 'aux' con new()
+36. El tipo de dato es incorrecto, debe ser 'persona'
+41. Falta leer persona de nuevo
+44. Deberia pasar parametro por valor
+48. Falta '.dato.' para acceder correctamente a los campos

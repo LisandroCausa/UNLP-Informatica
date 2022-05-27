@@ -1,0 +1,21 @@
+A) el programa lee (del usuario) y carga la lista para luego imprimirla.
+B) 48, 13, 21, 10
+C)
+procedure imprimirLista(L : lista);
+begin
+	while(L <> nil) do
+	begin
+		write(L^.num, ' ');
+		L := L^.sig;
+	end;
+end;
+
+D)
+procedure incrementarLista(L : lista; valor : integer);
+begin
+	while(L <> nil) do
+	begin
+		L^.num := L^.num + valor;
+		L := L^.sig;
+	end;
+end;

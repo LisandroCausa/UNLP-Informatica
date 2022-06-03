@@ -16,3 +16,6 @@ begin
 	L^.sig := aux;
 	L := L^.sig;
 end;
+
+begin
+end.

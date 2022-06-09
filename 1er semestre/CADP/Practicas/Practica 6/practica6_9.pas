@@ -19,6 +19,7 @@ begin
 		begin
 			if(L^.num < aux) then
 				estaOrdenada := false;
+			aux := L^.num;
 			L := L^.sig;
 		end;
 	end;

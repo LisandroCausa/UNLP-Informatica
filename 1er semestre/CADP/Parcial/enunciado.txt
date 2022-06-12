@@ -1,0 +1,16 @@
+Una panadería de La Plata vende productos de elaboración propia. La panadería agrupa sus
+productos en 26 categorías (1. Pan; 2. Medialunas; 3. Masas finas; ...). Para cada
+categoría se conoce nombre y precio por kilo.
+La panadería dispone de la información de todas las compras realizadas en el último año.
+De cada compra se conoce: DNI del cliente, categoría del producto (entre 1 y 26) y
+cantidad de kilos comprados. La información se encuentra ordenada por DNI del cliente.
+
+a) Realizar un módulo que retorne la información de las categorías en una estructura de
+datos adecuada. La información se lee por telcado sin ningún orden. De cada categoría
+se lee nombre, código (1 a 26) y precio.
+
+b) Realizar un módulo que reciba la información de todas las compras y de las
+categorías, y retorne:
+	1. DNI del cliente que más compras ha realizado.
+	2. Monto total recaudado por cada categoría.
+NOTA: Implementar el programa principal.

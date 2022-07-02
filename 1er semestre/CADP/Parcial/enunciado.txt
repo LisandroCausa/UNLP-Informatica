@@ -6,7 +6,7 @@ De cada compra se conoce: DNI del cliente, categoría del producto (entre 1 y 26
 cantidad de kilos comprados. La información se encuentra ordenada por DNI del cliente.
 
 a) Realizar un módulo que retorne la información de las categorías en una estructura de
-datos adecuada. La información se lee por telcado sin ningún orden. De cada categoría
+datos adecuada. La información se lee por teclado sin ningún orden. De cada categoría
 se lee nombre, código (1 a 26) y precio.
 
 b) Realizar un módulo que reciba la información de todas las compras y de las

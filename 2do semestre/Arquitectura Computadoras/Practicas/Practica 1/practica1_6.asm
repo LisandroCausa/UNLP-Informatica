@@ -1,0 +1,45 @@
+ORG 3000H
+MUL_A: MOV DX, 0  ; CH y CL valores de operandos. DX valor de retorno
+FOR_A: CMP CH, 0
+	JZ FIN_A
+	ADD DL, CL
+	ADC DH, 0
+	DEC CH
+	JMP FOR_A
+FIN_A: RET
+
+MUL_B: MOV DH, [BX]  ; BX y CX referencias a operandos. DX valor de retorno
+	MOV BX, CX
+	MOV CL, [BX]
+	MOV CH, DH
+	MOV DX, 0
+FOR_B: CMP CH, 0
+	JZ FIN_B
+	ADD DL, CL
+	ADC DH, 0
+	DEC CH
+	JMP FOR_B
+FIN_B: RET
+
+ORG 1000H
+	NUM1 DB 20
+	NUM2 DB 17
+	RES DW ?
+ORG 2000H
+	MOV AX, 0
+FOR: CMP NUM2, 0
+	JZ FIN_FOR
+	ADD AL, NUM1
+	ADC AH, 0
+	DEC NUM2
+	JMP FOR
+FIN_FOR: MOV NUM2, 17 
+	MOV CL, NUM1
+	MOV CH, NUM2
+	CALL MUL_A
+	
+	MOV BX, OFFSET NUM1
+	MOV CX, OFFSET NUM2
+	CALL MUL_B
+	HLT
+END

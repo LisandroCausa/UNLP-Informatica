@@ -1,4 +1,4 @@
-program tres;
+program uno;
 type
 	t_socio = record
 		id : integer;
@@ -139,17 +139,20 @@ end;
 
 // V)
 function existeID(id : integer; a : arbol) : boolean;
+var
+	retorno : boolean;
 begin
-	if(a = nil) then
+	retorno := false;
+	if(a <> nil) then
 	begin
-		existeID := false;
-	end
-	else
-	begin
-		existeID := existeID(id, a^.izq) or
-					(a^.socio.id = id) or
-					existeID(id, a^.der);
+		if(a^.socio.id < id) then
+			retorno := existeID(id, a^.der)
+		else if(a^.socio.id > id) then
+			retorno := existeID(id, a^.izq)
+		else
+			retorno := true; // encontro
 	end;
+	existeID := retorno;
 end;
 
 // VI)
@@ -205,10 +208,20 @@ begin
 	cant := 0;
 	if(a <> nil) then
 	begin
-		if(a^.socio.id >= inicio) and (a^.socio.id <= fin) then
+		if(a^.socio.id < inicio) then
+		begin
+			cant := dentroDeRango(inicio, fin, a^.der);
+		end
+		else if(a^.socio.id > fin) then
+		begin
+			cant := dentroDeRango(inicio, fin, a^.izq);
+		end
+		else
+		begin //  ID esta dentro del rango
 			cant := 1;
-		cant := cant + dentroDeRango(inicio, fin, a^.izq);
-		cant := cant + dentroDeRango(inicio, fin, a^.der);
+			cant := cant + dentroDeRango(inicio, fin, a^.izq);
+			cant := cant + dentroDeRango(inicio, fin, a^.der);
+		end;
 	end;
 	dentroDeRango := cant;
 end;

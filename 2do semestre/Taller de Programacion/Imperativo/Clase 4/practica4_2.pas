@@ -98,13 +98,10 @@ begin
 	min.ID := 9999;
 	for i:=1 to 8 do
 	begin
-		if(mes[i] <> nil) then
+		if((mes[i] <> nil) and (mes[i]^.pelicula.ID < min.ID)) then
 		begin
-			if(mes[i]^.pelicula.ID < min.ID) then
-			begin
-				indiceMin := i;
-				min := mes[indiceMin]^.pelicula;
-			end;
+			indiceMin := i;
+			min := mes[indiceMin]^.pelicula;
 		end;
 	end;
 	

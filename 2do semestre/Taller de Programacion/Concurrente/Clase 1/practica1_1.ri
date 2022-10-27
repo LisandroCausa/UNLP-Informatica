@@ -1,0 +1,48 @@
+programa Ejercicio1Practica1 
+procesos
+  proceso juntarFlores 
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+  fin
+  proceso juntarEsquina(ES vacias : numero)
+  comenzar
+    si HayFlorEnLaEsquina
+      juntarFlores
+    sino
+      vacias := vacias + 1
+  fin 
+  proceso recorrerAvenida
+  variables
+    esquinasVacias : numero
+    flores:numero
+  comenzar
+    repetir 99
+      juntarEsquina(esquinasVacias)
+      mover
+    juntarEsquina(esquinasVacias)
+    mientras HayFlorEnLaBolsa
+      flores := flores + 1
+      depositarFlor
+    Informar(flores)
+    Informar(esquinasVacias)
+  fin
+areas
+  ciudad: AreaC(1,1,100,100) 
+robots
+  robot robot1
+  comenzar
+    recorrerAvenida
+  fin
+variables
+  Gaspar: robot1
+  Melchor: robot1
+  Baltasar: robot1
+comenzar
+  AsignarArea(Gaspar, ciudad)
+  AsignarArea(Melchor, ciudad)
+  AsignarArea(Baltasar, ciudad)
+  Iniciar(Gaspar, 1, 1)
+  Iniciar(Melchor, 3, 1)
+  Iniciar(Baltasar, 5, 1)
+fin

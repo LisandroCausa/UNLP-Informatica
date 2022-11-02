@@ -1,0 +1,101 @@
+programa practica3_1
+procesos
+  proceso juntarFlores
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+  fin
+  proceso juntarPapeles
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+  fin
+  proceso guardarPos(ES X : numero; ES Y : numero)
+  comenzar
+    X := PosAv
+    Y := PosCa
+  fin
+  proceso proximaPos(ES X : numero; ES Y : numero; E xInicio : numero; E yInicio : numero; E xFin : numero; E yFin : numero)
+  variables
+    xTmp : numero
+    yTmp : numero
+  comenzar
+    Random(xTmp, xInicio, xFin)
+    Random(yTmp, yInicio, yFin)
+    X := xTmp
+    Y := yTmp
+  fin
+areas
+  floreros : AreaPC(1, 1, 5, 10)
+  papeleros : AreaPC(6, 1, 10, 9)
+  inicioF : AreaPC(6, 10, 7, 10)
+  inicioP : AreaPC(8, 10, 9, 10)
+  resultado : AreaC(10, 10, 10, 10)
+robots
+  robot florero
+  variables
+    posInicialX : numero
+    posInicialY : numero
+    X : numero
+    Y : numero
+  comenzar
+    guardarPos(posInicialX, posInicialY)
+    repetir 5
+      proximaPos(X, Y, 1, 1, 5, 10)
+      BloquearEsquina(X, Y)
+      Pos(X, Y)
+      juntarFlores
+      Pos(posInicialX, posInicialY)
+      LiberarEsquina(X, Y)
+    BloquearEsquina(10, 10)
+    Pos(10, 10)
+    mientras HayFlorEnLaBolsa
+      depositarFlor
+    Pos(posInicialX, posInicialY)
+    LiberarEsquina(10, 10)
+  fin
+  robot papelero
+  variables
+    posInicialX : numero
+    posInicialY : numero
+    X : numero
+    Y : numero
+  comenzar
+    guardarPos(posInicialX, posInicialY)
+    repetir 3
+      proximaPos(X, Y, 6, 1, 10, 9)
+      BloquearEsquina(X, Y)
+      Pos(X, Y)
+      juntarPapeles
+      Pos(posInicialX, posInicialY)
+      LiberarEsquina(X, Y)
+    BloquearEsquina(10, 10)
+    Pos(10, 10)
+    mientras HayPapelEnLaBolsa
+      depositarPapel
+    Pos(posInicialX, posInicialY)
+    LiberarEsquina(10, 10)
+  fin
+variables
+  r1 : florero
+  r2 : florero
+  r3 : papelero
+  r4 : papelero
+comenzar
+  AsignarArea(r1, floreros)
+  AsignarArea(r2, floreros)
+  AsignarArea(r3, papeleros)
+  AsignarArea(r4, papeleros)
+  AsignarArea(r1, inicioF)
+  AsignarArea(r2, inicioF)
+  AsignarArea(r3, inicioP)
+  AsignarArea(r4, inicioP)
+  AsignarArea(r1, resultado)
+  AsignarArea(r2, resultado)
+  AsignarArea(r3, resultado)
+  AsignarArea(r4, resultado)
+  Iniciar(r1, 6, 10)
+  Iniciar(r2, 7, 10)
+  Iniciar(r3, 8, 10)
+  Iniciar(r4, 9, 10)
+fin

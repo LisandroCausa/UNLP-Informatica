@@ -1,0 +1,42 @@
+programa practica2_1
+procesos
+  proceso juntarYContarF (ES cantF: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      cantF := cantF + 1
+  fin
+areas
+  area1 : AreaP(1, 1, 1, 10)
+  area2 : AreaP(2, 11, 2, 20)
+robots
+  robot robot1
+  variables
+    cantF : numero
+    otro : numero
+    id : numero
+  comenzar
+    id := PosAv
+    cantF := 0
+    repetir 9
+      juntarYContarF(cantF)
+      mover
+    juntarYContarF(cantF)
+        
+    si id = 1
+      EnviarMensaje(cantF, jugador2)
+    sino
+      EnviarMensaje(cantF, jugador1)
+    RecibirMensaje(otro, *)
+    si cantF > otro
+      Informar(cantF - otro)
+  fin
+variables
+  jugador1 : robot1
+  jugador2 : robot1
+comenzar
+  AsignarArea(jugador1, area1)
+  AsignarArea(jugador2, area2)
+  Iniciar(jugador1, 1, 1)
+  Iniciar(jugador2, 2, 11)
+fin

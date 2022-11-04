@@ -1,0 +1,94 @@
+programa practica2_1
+procesos
+  proceso juntarYContarF (ES cantF: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      cantF := cantF + 1
+  fin
+areas
+  area1 : AreaP(1, 1, 1, 10)
+  area2 : AreaP(2, 11, 2, 20)
+  area3 : AreaP(3, 21, 3, 30)
+  area4 : AreaP(4, 31, 4, 40)
+  area5 : AreaP(5, 41, 5, 50)
+  area6 : AreaP(6, 51, 6, 60)
+  areaF : AreaP(2, 1, 2, 1)
+robots
+  robot robot1
+  variables
+    cantF : numero
+    id : numero
+  comenzar
+    RecibirMensaje(id, juez)
+    cantF := 0
+    repetir 9
+      juntarYContarF(cantF)
+      mover
+    juntarYContarF(cantF)
+    EnviarMensaje(id, juez)
+    EnviarMensaje(cantF, juez)
+  fin
+  robot fiscalizador
+  variables
+    id : numero
+    cant : numero
+    cantMax : numero
+    idMax : numero
+  comenzar
+    EnviarMensaje(1, jugador1)
+    EnviarMensaje(2, jugador2)
+    EnviarMensaje(3, jugador3)
+    EnviarMensaje(4, jugador4)
+    EnviarMensaje(5, jugador5)
+    EnviarMensaje(6, jugador6)
+    cantMax := -1
+    idMax := -1
+    repetir 6
+      RecibirMensaje(id, *)
+      si id = 1
+        RecibirMensaje(cant, jugador1)
+      sino
+        si id = 2
+          RecibirMensaje(cant, jugador2)
+        sino
+          si id = 3
+            RecibirMensaje(cant, jugador3)
+          sino
+            si id = 4
+              RecibirMensaje(cant, jugador4)
+            sino
+              si id = 5
+                RecibirMensaje(cant, jugador5)
+              sino
+                RecibirMensaje(cant, jugador6) 
+      si cant > cantMax
+        cantMax := cant
+        idMax := id
+    Informar('ROBOT', idMax)
+    Informar('FLORES', cantMax)
+  fin
+variables
+  jugador1 : robot1
+  jugador2 : robot1
+  jugador3 : robot1
+  jugador4 : robot1
+  jugador5 : robot1
+  jugador6 : robot1
+  juez : fiscalizador
+comenzar
+  AsignarArea(juez, areaF)
+  AsignarArea(jugador1, area1)
+  AsignarArea(jugador2, area2)
+  AsignarArea(jugador3, area3)
+  AsignarArea(jugador4, area4)
+  AsignarArea(jugador5, area5)
+  AsignarArea(jugador6, area6)
+  Iniciar(juez, 2, 1)
+  Iniciar(jugador1, 1, 1)
+  Iniciar(jugador2, 2, 11)
+  Iniciar(jugador3, 3, 21)
+  Iniciar(jugador4, 4, 31)
+  Iniciar(jugador5, 5, 41)
+  Iniciar(jugador6, 6, 51)
+fin

@@ -1,0 +1,114 @@
+programa practica3_2
+procesos
+  proceso izquierda
+  comenzar
+    repetir 3
+      derecha
+  fin
+  proceso juntarFlores
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+  fin
+  proceso juntarPapeles
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+  fin
+  proceso escalonFlor(E N : numero)
+  comenzar
+    repetir N
+      mover
+    juntarFlores
+    derecha
+    repetir N
+      mover
+    juntarFlores
+    izquierda
+  fin
+  proceso escalonPapel(E N : numero)
+  comenzar
+    repetir N
+      mover
+    juntarPapeles
+    izquierda
+    repetir N
+      mover
+    juntarPapeles
+    derecha
+  fin
+areas
+  ciudad : AreaC(1, 1, 100, 100)
+robots
+  robot r_jefe
+  variables
+    tmp : numero
+    ganador : boolean
+  comenzar
+    RecibirMensaje(tmp, *)
+    si tmp = 1
+      ganador := F
+      RecibirMensaje(tmp, r2)
+    sino
+      ganador := V
+      RecibirMensaje(tmp, r1)
+    RecibirMensaje(tmp, *)
+    RecibirMensaje(tmp, *)
+    si ganador
+      tmp := 2
+    sino
+      tmp := 1
+    Informar('GANADOR', tmp)
+  fin
+  robot robot1
+  variables
+    longitud : numero
+  comenzar
+    longitud := 5
+    mientras (longitud > 1)
+      escalonFlor(longitud)
+      longitud := longitud - 1
+    BloquearEsquina(16, 16)
+    escalonFlor(longitud)
+    EnviarMensaje(1, jefe)
+    izquierda
+    mover
+    LiberarEsquina(16, 16)
+    longitud := 2
+    mientras (longitud <= 5)
+      escalonFlor(longitud)
+      longitud := longitud + 1
+    EnviarMensaje(0, jefe)
+  fin
+  robot robot2
+  variables
+    longitud : numero
+  comenzar
+    longitud := 5
+    mientras (longitud > 1)
+      escalonPapel(longitud)
+      longitud := longitud - 1
+    BloquearEsquina(16, 16)
+    escalonPapel(longitud)
+    EnviarMensaje(2, jefe)
+    derecha
+    mover
+    LiberarEsquina(16, 16)
+    longitud := 2
+    mientras (longitud <= 5)
+      escalonPapel(longitud)
+      longitud := longitud + 1
+    EnviarMensaje(0, jefe)
+  fin
+variables
+  jefe : r_jefe
+  r1 : robot1
+  r2 : robot2
+comenzar
+  AsignarArea(jefe, ciudad)
+  AsignarArea(r1, ciudad)
+  AsignarArea(r2, ciudad)
+  Iniciar(jefe, 15, 1)
+  Iniciar(r1, 1, 1)
+  Iniciar(r2, 31, 1)
+fin

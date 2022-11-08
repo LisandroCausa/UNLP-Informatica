@@ -1,0 +1,103 @@
+programa practica4_2
+procesos
+  proceso vaciarPapelesBolsa
+  comenzar
+    mientras HayPapelEnLaBolsa
+      depositarPapel
+  fin
+  proceso dejarPapelesProductor
+  variables
+    viejoAv : numero
+    viejoCa : numero
+  comenzar
+    viejoAv := PosAv
+    viejoCa := PosCa
+    BloquearEsquina(50, 50)
+    Pos(50, 50)
+    vaciarPapelesBolsa
+    Pos(viejoAv, viejoCa)
+    LiberarEsquina(50, 50)
+  fin
+  proceso intentarConsumir(E objetivo : numero; ES exito : boolean)
+  variables
+    papeles : numero
+  comenzar
+    papeles := 0
+    BloquearEsquina(50, 50)
+    Pos(50, 50)
+    mientras ((HayPapelEnLaEsquina) & (papeles < objetivo))
+      tomarPapel
+      papeles := papeles + 1
+    si (papeles = objetivo)
+      exito := V
+    sino
+      exito := F
+      vaciarPapelesBolsa
+  fin
+areas
+  av5 : AreaP(5, 1, 5, 100)
+  av10 : AreaP(10, 1, 10, 100)
+  intercambio : AreaC(50, 50, 50, 50)
+  areaConsu1 : AreaP(11, 1, 11, 1)
+  areaConsu2 : AreaP(12, 1, 12, 1)
+robots
+  robot productor
+  variables
+    papeles : numero
+  comenzar
+    repetir 99
+      mientras HayPapelEnLaEsquina
+        tomarPapel
+        papeles := papeles + 1
+        si papeles = 5
+          dejarPapelesProductor
+          papeles := 0
+      mover
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papeles := papeles + 1
+      si papeles = 5
+        dejarPapelesProductor
+        papeles := 0
+  fin
+  robot consumidor
+  variables
+    intentosFallidos : numero
+    cantPapeles : numero
+    exito : boolean
+    viejoAv : numero
+    viejoCa : numero
+  comenzar
+    viejoAv := PosAv
+    viejoCa := PosCa
+    intentosFallidos := 0
+    mientras (intentosFallidos < 8)
+      Random(cantPapeles, 2, 5)
+      intentarConsumir(cantPapeles, exito)
+      Pos(viejoAv, viejoCa)
+      LiberarEsquina(50, 50)
+      si exito
+        vaciarPapelesBolsa
+        intentosFallidos := 0
+      sino
+        intentosFallidos := intentosFallidos + 1
+  fin
+variables
+  productor1 : productor
+  productor2 : productor
+  consumidor1 : consumidor
+  consumidor2 : consumidor
+comenzar
+  AsignarArea(productor1, intercambio)
+  AsignarArea(productor2, intercambio)
+  AsignarArea(consumidor1, intercambio)
+  AsignarArea(consumidor2, intercambio)
+  AsignarArea(productor1, av5)
+  AsignarArea(productor2, av10)
+  AsignarArea(consumidor1, areaConsu1)
+  AsignarArea(consumidor2, areaConsu2)
+  Iniciar(productor1, 5, 1)
+  Iniciar(productor2, 10, 1)
+  Iniciar(consumidor1, 11, 1)
+  Iniciar(consumidor2, 12, 1)
+fin

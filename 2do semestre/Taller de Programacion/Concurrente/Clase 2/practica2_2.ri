@@ -1,0 +1,90 @@
+programa practica2_2
+procesos
+  proceso izquierda
+  comenzar
+    repetir 3
+      derecha
+  fin
+  proceso contarFlores(ES cant : numero)
+  variables
+    dif : numero
+  comenzar
+    dif := 0
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      dif := dif + 1
+    repetir dif
+      depositarFlor
+    cant := cant + dif
+  fin
+  proceso contarPapeles(ES cant: numero)
+  variables
+    dif : numero
+  comenzar
+    dif := 0
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      dif := dif + 1
+    repetir dif
+      depositarPapel
+    cant := cant + dif
+  fin
+  proceso escalon(ES flores : numero; ES papeles : numero)
+  variables
+    alto : numero
+  comenzar
+    flores := 0
+    papeles := 0
+    Random(alto, 1, 5)
+    repetir alto
+      contarFlores(flores)
+      contarPapeles(papeles)
+      mover
+    derecha
+    contarFlores(flores)
+    contarFlores(papeles)
+    mover
+    izquierda
+  fin
+areas
+  ciudad : AreaC(1, 1, 100, 100)
+robots
+  robot t_jefe
+  variables
+    suma : numero
+    tmp : numero
+  comenzar
+    suma := 0
+    repetir 3
+      RecibirMensaje(tmp, *)
+      suma := suma + tmp
+    Informar(suma)
+  fin
+  robot robot1
+  variables
+    flores : numero
+    papeles : numero
+    cantCond : numero
+  comenzar
+    cantCond := 0
+    repetir 4
+      escalon(flores, papeles)
+      si (flores > papeles)
+        cantCond := cantCond + 1
+    EnviarMensaje(cantCond, jefe)
+  fin
+variables
+  jefe : t_jefe
+  r1 : robot1
+  r2 : robot1
+  r3 : robot1
+comenzar
+  AsignarArea(jefe, ciudad)
+  AsignarArea(r1, ciudad)
+  AsignarArea(r2, ciudad)
+  AsignarArea(r3, ciudad)
+  Iniciar(jefe, 1, 1)
+  Iniciar(r1, 2, 1)
+  Iniciar(r2, 7, 1)
+  Iniciar(r3, 12, 1)
+fin

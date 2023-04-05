@@ -7,5 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="src" path="/ListasDeEnteros"/>
+	<classpathentry kind="src" path="/ListasGenericas"/>
+	<classpathentry kind="src" path="/Practica_1B"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

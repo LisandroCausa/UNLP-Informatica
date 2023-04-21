@@ -139,6 +139,7 @@ public class RecorridosAG {
 		ColaGenerica<ArbolGeneral<Integer>> cola = new ColaGenerica<ArbolGeneral<Integer>>();
 		
 		cola.encolar(a);
+		cola.encolar(null);
 		while(!cola.esVacia())
 		{
 			ArbolGeneral<Integer> proximo = cola.desencolar();

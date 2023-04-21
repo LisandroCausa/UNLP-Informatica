@@ -1,6 +1,7 @@
 package ejercicio5;
 
 import tp03.ejercicio1.*;
+import tp02.ejercicio3.ColaGenerica;
 
 public class ProfundidadDeArbolBinario {
 	private ArbolBinario<Integer> arbol;
@@ -10,26 +11,35 @@ public class ProfundidadDeArbolBinario {
 	}
 	
 	public int sumaElementosProfundidad(int p) {
-		if(p == 0)
-			return this.arbol.getDato();
-		
-		if(p < 0)
-			return 0;
-		
-		int izquierdo = 0;
-		if(this.arbol.tieneHijoIzquierdo())
+ 		int suma = 0;
+		int altura = 0;
+		ColaGenerica<ArbolBinario<Integer>> cola = new ColaGenerica<ArbolBinario<Integer>>();
+		cola.encolar(this.arbol);
+		cola.encolar(null);
+		while(!cola.esVacia())
 		{
-			ArbolBinario<Integer> hijoIzquierdo = this.arbol.getHijoIzquierdo();
-			izquierdo = (new ProfundidadDeArbolBinario(hijoIzquierdo)).sumaElementosProfundidad(p-1);
+			ArbolBinario<Integer> proximo = cola.desencolar();
+			if(proximo != null)
+			{
+				if(altura == p)
+				{
+					suma += proximo.getDato();
+				}
+				else if(altura < p)
+				{
+					if(proximo.tieneHijoIzquierdo())
+						cola.encolar(proximo.getHijoIzquierdo());
+					
+					if(proximo.tieneHijoDerecho())
+						cola.encolar(proximo.getHijoDerecho());
+				}
+			}
+			else if(!cola.esVacia())
+			{
+				altura++;
+				cola.encolar(null);
+			}
 		}
-		
-		int derecho = 0;
-		if(this.arbol.tieneHijoDerecho())
-		{
-			ArbolBinario<Integer> hijoDerecho = this.arbol.getHijoDerecho();
-			derecho = (new ProfundidadDeArbolBinario(hijoDerecho)).sumaElementosProfundidad(p-1);
-		}
-		
-		return izquierdo + derecho;
+		return suma;
 	}
 }

@@ -152,4 +152,22 @@ public class ArbolGeneral<T> {
 		return max;
 	}
 
+	public Boolean esAncestro(T a, T b) {
+		ArbolGeneral<T> nodoAncestro = this.buscar(a);
+		return (nodoAncestro != null && nodoAncestro.buscar(b) != null);
+	}
+	
+	private ArbolGeneral<T> buscar(T dato) {
+		if(this.getDato().equals(dato))
+			return this;
+		
+		ListaGenerica<ArbolGeneral<T>> hijos = this.getHijos();
+		hijos.comenzar();
+		ArbolGeneral<T> resultado = null;
+		while(!hijos.fin() && resultado == null)
+		{
+			resultado = hijos.proximo().buscar(dato);
+		}
+		return resultado;
+	}
 }

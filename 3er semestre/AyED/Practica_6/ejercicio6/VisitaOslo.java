@@ -13,16 +13,6 @@ public class VisitaOslo {
 		ListaGenerica<String> camino = new ListaEnlazadaGenerica<String>();
 		int n = lugares.listaDeVertices().tamanio();
 		
-		/*int[] grados_in = new int[n+1];
-		for(int i = 1; i <= n; i++) {
-			ListaGenerica<Arista<String>> adyacentes = lugares.listaDeAdyacentes(lugares.vertice(i));
-			adyacentes.comenzar();
-			while(!adyacentes.fin()) {
-				grados_in[adyacentes.proximo().verticeDestino().getPosicion()] += 1;
-			}
-		}
-		dfsMaxDistExcepciones2(verticeOrigen, destino, lugares, grados_in, lugaresRestringidos, maxTiempo, camino);*/
-		
 		boolean[] visitados = new boolean[n+1];
 		dfsMaxDistExcepciones(verticeOrigen, destino, lugares, visitados, lugaresRestringidos, maxTiempo, camino);
 		
@@ -61,30 +51,7 @@ public class VisitaOslo {
 		if(encontrado) {
 			camino.agregarInicio(vertice.dato());
 		}
+		visitados[vertice.getPosicion()] = false;
 		return encontrado;
 	}
-	
-	/*private boolean dfsMaxDistExcepciones2(Vertice<String> vertice, String buscado, Grafo<String> grafo, int[] grados_in, ListaGenerica<String> lugaresRestringidos, int maxTiempo, ListaGenerica<String> camino) {
-		boolean encontrado = false;
-		if(grados_in[vertice.getPosicion()] == 0) {
-			return false;
-		}
-		grados_in[vertice.getPosicion()] -= 1;
-		if(vertice.dato().equals(buscado)) {
-			encontrado = true;
-		} else if(lugaresRestringidos.incluye(vertice.dato()) == false) {
-			ListaGenerica<Arista<String>> adyacentes = grafo.listaDeAdyacentes(vertice);
-			adyacentes.comenzar();
-			while(!adyacentes.fin() && !encontrado) {
-				Arista<String> arista = adyacentes.proximo();
-				if(arista.peso() <= maxTiempo) {
-					encontrado = dfsMaxDistExcepciones2(arista.verticeDestino(), buscado, grafo, grados_in, lugaresRestringidos, (maxTiempo-arista.peso()), camino);
-				}
-			}
-		}
-		if(encontrado) {
-			camino.agregarInicio(vertice.dato());
-		}
-		return encontrado;
-	}*/
 }

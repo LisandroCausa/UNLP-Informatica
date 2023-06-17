@@ -69,6 +69,14 @@ public class TestMapa {
 		while(!lis4.fin()) {
 			System.out.println(lis4.proximo());
 		}
+		
+		ListaGenerica<String> lis5 = mapa.caminoConMenorCargaDeCombustible("Buenos Aires","Asuncion", 6);
+		//PARA COMPROBAR QUE FUNCIONA CAMBIAR ciudades.conectar(v1, v2,8); Y ciudades.conectar(v2, v5,8);
+		System.out.println("--- Se imprime caminoConMenorCargaDeCombustible ---");
+		lis5.comenzar();
+		while(!lis5.fin()) {
+			System.out.println(lis5.proximo());
+		}
 	}
 
 }

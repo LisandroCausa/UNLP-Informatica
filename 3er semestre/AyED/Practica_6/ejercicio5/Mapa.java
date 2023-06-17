@@ -220,8 +220,90 @@ public class Mapa {
 				}
 			}
 		}
-
 		
 		return camino;
 	}
+	
+	public ListaGenerica<String> caminoConMenorCargaDeCombustible(String ciudad1, String ciudad2, int tanqueAuto) {
+		ListaGenerica<String> camino = new ListaEnlazadaGenerica<String>();
+		
+		Vertice<String> origen = buscarVertice(ciudad1);
+		
+		boolean[] visitados = new boolean[this.mapa.listaDeVertices().tamanio()+1];
+		Minimo min = dfsMenorCargas(origen.getPosicion(), ciudad2, tanqueAuto, tanqueAuto, 0, 9999, visitados);
+		
+		return min.getCamino();
+	}
+
+	private Minimo dfsMenorCargas(int p, String buscado, int tanqueActual, int tanqueMax, int cargasActual, int cargasMin, boolean[] visitados) {
+		  if(visitados[p] || cargasActual >= cargasMin) {
+		    return null;
+		  }
+		  visitados[p] = true;
+		  Minimo minimo = new Minimo(9999, (new ListaEnlazadaGenerica<String>()));
+		  if(this.mapa.vertice(p).dato().equals(buscado)) {
+		    minimo.setCargas(cargasActual);
+		  } else {
+		    ListaGenerica<Arista<String>> adyacentes = this.mapa.listaDeAdyacentes(this.mapa.vertice(p));
+		    adyacentes.comenzar();
+		    
+		    while(!adyacentes.fin() && cargasMin > 0) {
+		      Arista<String> arista = adyacentes.proximo();
+		      int peso = arista.peso();
+		      int cargasArista = cargasActual;
+		      int tanqueArista = tanqueActual;
+		      if(peso <= tanqueMax) {
+		        if(peso > tanqueArista) {
+		          tanqueArista = tanqueMax - peso;
+		          cargasArista++;
+		        }
+		        Minimo res = dfsMenorCargas(arista.verticeDestino().getPosicion(), buscado, tanqueArista, tanqueMax, cargasArista, cargasMin, visitados);
+		      	if(res != null && res.getCargas() < minimo.getCargas()) {
+		          minimo = res;
+		          cargasMin = minimo.getCargas();
+		        }
+		      }
+		    }
+		  }
+		  visitados[p] = false;
+		  if(minimo != null) {
+			  minimo.getCamino().agregarInicio(this.mapa.vertice(p).dato());
+		  }
+		  return minimo;
+	}
+	
+	
+	/*private int dfsMenorCantCargas(int p, ListaGenerica<String> camino, String buscado, boolean[] visitados, int cargasHechas, int tanqueActual, int tanqueMax) {
+	boolean encontrado = false;
+	int minCargas = Integer.MAX_VALUE;
+	if(visitados[p]) {
+		return Integer.MAX_VALUE;
+	}
+	visitados[p] = true;
+	Vertice<String> vertice = this.mapa.vertice(p);
+	if(vertice.dato().equals(buscado)) {
+		encontrado = true;
+	} else {
+		ListaGenerica<Arista<String>> adyacentes = this.mapa.listaDeAdyacentes(vertice);
+		adyacentes.comenzar();
+		while(!adyacentes.fin()) {
+			Arista<String> arista = adyacentes.proximo();
+			if(arista.peso() <= tanqueMax) {
+				int cargasArista = cargasHechas;
+				int tanqueArista = tanqueActual;
+				if(arista.peso() > tanqueArista) {
+					tanqueArista = tanqueMax - arista.peso();
+					cargasArista++;
+				}
+				int res = dfsMenorCantCargas(arista.verticeDestino().getPosicion(), camino, buscado, visitados, cargasArista, tanqueArista, tanqueMax);
+				if(res < minCargas) {
+					minCargas = res;
+					//camino =
+				}
+			}
+		}
+	}
+
+	return minCargas;
+}*/
 }

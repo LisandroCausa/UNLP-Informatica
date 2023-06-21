@@ -97,26 +97,44 @@ public class Mapa {
 	}
 	
 	public ListaGenerica<String> caminoMasCorto(String ciudad1, String ciudad2) {
+
 		Vertice<String> verticeOrigen = buscarVertice(ciudad1);
-		Vertice<String> verticeDestino = buscarVertice(ciudad2);
 		
 		int n = this.mapa.listaDeVertices().tamanio();
-		int[] D = new int[n+1];
-		int[] P = new int [n+1];
-		DijkstraAciclico(D, P, verticeOrigen.getPosicion());
+		boolean[] visitados = new boolean[n+1];
+		Camino camino = dfsCaminoMasCorto(verticeOrigen, ciudad2, visitados);
 		
-		ListaGenerica<String> camino = new ListaEnlazadaGenerica<String>();
-		int i = verticeDestino.getPosicion();
-		while(P[i] != 0) {
-			camino.agregarInicio(this.mapa.vertice(i).dato());
-			i = P[i];
+		return camino.getCamino();
+	}
+	
+	private Camino dfsCaminoMasCorto(Vertice<String> vertice, String buscado, boolean[] visitados) {
+		if(visitados[vertice.getPosicion()]) {
+			return null;
 		}
-		camino.agregarInicio(this.mapa.vertice(i).dato());
-		
+		Camino camino = new Camino((new ListaEnlazadaGenerica<String>()), 9999);
+		visitados[vertice.getPosicion()] = true;
+		if(vertice.dato().equals(buscado)) {
+			camino = new Camino((new ListaEnlazadaGenerica<String>()), 0);
+		} else {
+			ListaGenerica<Arista<String>> adyacentes = this.mapa.listaDeAdyacentes(vertice);
+			adyacentes.comenzar();
+			while(!adyacentes.fin()) {
+				Arista<String> arista = adyacentes.proximo();
+				Camino caminoProximo = dfsCaminoMasCorto(arista.verticeDestino(), buscado, visitados);
+				if(caminoProximo != null) {
+					caminoProximo.setCosto(arista.peso() + caminoProximo.getCosto());
+					if(caminoProximo.getCosto() < camino.getCosto()) {
+						camino = caminoProximo;
+					}
+				}
+			}
+		}
+		camino.getCamino().agregarInicio(vertice.dato());
+		visitados[vertice.getPosicion()] = false;
 		return camino;
 	}
 	
-	private void Dijkstra(int[] D, int[] P, int origen) {
+	/*private void Dijkstra(int[] D, int[] P, int origen) {
 		int n = this.mapa.listaDeVertices().tamanio();
 		boolean[] visitado = new boolean[n+1];
 		
@@ -196,31 +214,43 @@ public class Mapa {
 				}
 			}
 		}
-	}
+	}*/
 	
 	public ListaGenerica<String> caminoSinCargarCombustible(String ciudad1, String ciudad2, int tanqueAuto) {
 		Vertice<String> verticeOrigen = buscarVertice(ciudad1);
-		Vertice<String> verticeDestino = buscarVertice(ciudad2);
 		
 		int n = this.mapa.listaDeVertices().tamanio();
-		int[] D = new int[n+1];
-		int[] P = new int[n+1];
-		DijkstraAciclico(D, P, verticeOrigen.getPosicion());
+		boolean[] visitados = new boolean[n+1];
 		
-		ListaGenerica<String> camino = new ListaEnlazadaGenerica<String>();
-		int i = verticeDestino.getPosicion();
-		if(D[i] <= tanqueAuto) {
-			while(i != 0) {
-				camino.agregarInicio(this.mapa.vertice(i).dato());
-				i = P[i];
-			}
-			if(tanqueAuto < 0) {
-				while(!camino.esVacia()) {
-					camino.eliminarEn(1);
-				}
+		ListaGenerica<String> camino = dfsSinCargarCombustible(verticeOrigen, ciudad2, visitados, tanqueAuto, 0);
+		
+		if(camino == null) {
+			camino = new ListaEnlazadaGenerica<String>();
+		}
+		return camino;
+	}
+	
+	private ListaGenerica<String> dfsSinCargarCombustible(Vertice<String> vertice, String buscado, boolean[] visitados, int tanque, int costo) {
+		if(visitados[vertice.getPosicion()] || costo > tanque) {
+			return null;
+		}
+		visitados[vertice.getPosicion()] = true;
+		ListaGenerica<String> camino = null;
+		if(vertice.dato().equals(buscado)) {
+			camino = new ListaEnlazadaGenerica<String>();
+		} else {
+			ListaGenerica<Arista<String>> adyacentes = this.mapa.listaDeAdyacentes(vertice);
+			adyacentes.comenzar();
+			while(!adyacentes.fin() && camino == null) {
+				Arista<String> arista = adyacentes.proximo();
+				camino = dfsSinCargarCombustible(arista.verticeDestino(), buscado, visitados, tanque, costo + arista.peso());
 			}
 		}
 		
+		if(camino != null) {
+			camino.agregarInicio(vertice.dato());
+		}
+		visitados[vertice.getPosicion()] = false;
 		return camino;
 	}
 	
